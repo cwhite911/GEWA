@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>GIS 550 - HW 14</title>
+  <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.11/esri/css/esri.css">
+  <link rel="stylesheet" type="text/css" href="./app/css/mapStyle.css">
+  
+  <script src="http://js.arcgis.com/3.11/"></script>
+  <script>
+
+    require([
+      "esri/map", 
+      "esri/dijit/HomeButton",
+      "dojo/domReady!"
+    ], function(
+      Map, HomeButton
+    )  {
+
+      var map = new Map("map", {
+        center: [-56.049, 38.485],
+        zoom: 3,
+        basemap: "national-geographic"
+      });
+            
+      var home = new HomeButton({
+        map: map
+      }, "HomeButton");
+      home.startup();
+
+    });
+  </script>
+</head>
+<body>
+  <div id="map" class="map">
+    <div id="HomeButton"></div>
+  </div>
+</body>
+</html>
