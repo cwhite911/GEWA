@@ -7,7 +7,6 @@
   	"esri/dijit/Scalebar",
    	"esri/arcgis/utils",
    	"esri/layers/FeatureLayer", 
-   	"esri/dijit/Legend",
     "dojo/_base/array",
     "esri/InfoTemplate",
     "dojo/parser",
@@ -16,7 +15,7 @@
     "dijit/TitlePane",
     "dijit/layout/AccordionContainer",
   	"dojo/domReady!"
-	], function(Map, HomeButton, BasemapGallery, Scalebar, arcgisUtils, FeatureLayer, Legend, arrayUtils, InfoTemplate, parser){
+	], function(Map, HomeButton, BasemapGallery, Scalebar, arcgisUtils, FeatureLayer, arrayUtils, InfoTemplate, parser){
 		 parser.parse();
 
 		 //variables
@@ -77,12 +76,6 @@
           		return {layer:layer.layer, title:layer.layer.name};
         	});
         	if (layerInfo.length > 0) {
-          	// 	legendDijit = new Legend({
-           //  		map: map,
-           //  		layerInfos: layerInfo,
-           //  		respectCurrentMapScale: true
-          	// }, "legendDiv");
-          	// legendDijit.startup();
           	var toc = new agsjs.dijit.TOC({
                   map: map,
                   layerInfos: layerInfo
