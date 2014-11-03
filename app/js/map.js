@@ -9,13 +9,14 @@
    	"esri/layers/FeatureLayer", 
    	"esri/dijit/Legend",
     "dojo/_base/array",
+    "esri/InfoTemplate",
     "dojo/parser",
     "dijit/layout/BorderContainer",
     "dijit/layout/ContentPane",
     "dijit/TitlePane",
     "dijit/layout/AccordionContainer",
   	"dojo/domReady!"
-	], function(Map, HomeButton, BasemapGallery, Scalebar, arcgisUtils, FeatureLayer, Legend, arrayUtils, parser){
+	], function(Map, HomeButton, BasemapGallery, Scalebar, arcgisUtils, FeatureLayer, Legend, arrayUtils, InfoTemplate, parser){
 		 parser.parse();
 
 		 //variables
@@ -28,8 +29,6 @@
 		 	layers = [],
 	   		url,
 	   		temp;
-
-
 
 		//Set up init map view
   	 	map = new Map("map", {
@@ -60,32 +59,35 @@
           scalebarUnit: "dual"
         });
 
-	 
-
-	   	//Adds all layers to map and legend
+	 	
+	   	//Adds all layers to map, legend and creates popup
 	    for (var i = 0; i < 12; i++ ){
 	   		url = "http://152.46.17.144/arcgis/rest/services/GEWA/gewa_sde/MapServer/" + i;
 	    	temp =  new FeatureLayer(url, {
         		mode: FeatureLayer.MODE_ONDEMAND,
-        		outFields:["*"]
+        		outFields:["*"],
+        		infoTemplate: new InfoTemplate('Layer', "${*}")
       		});
       		layers.push(temp);
 	    };
-	
 
      	//add the legend
      	map.on("layers-add-result", function (evt) {
         	layerInfo = arrayUtils.map(evt.layers, function (layer, index) {
-        		console.log(layer.layer);
           		return {layer:layer.layer, title:layer.layer.name};
         	});
         	if (layerInfo.length > 0) {
-          		legendDijit = new Legend({
-            		map: map,
-            		layerInfos: layerInfo,
-            		respectCurrentMapScale: true
-          	}, "legendDiv");
-          	legendDijit.startup();
+          	// 	legendDijit = new Legend({
+           //  		map: map,
+           //  		layerInfos: layerInfo,
+           //  		respectCurrentMapScale: true
+          	// }, "legendDiv");
+          	// legendDijit.startup();
+          	var toc = new agsjs.dijit.TOC({
+                  map: map,
+                  layerInfos: layerInfo
+                
+               }, 'tocDiv');
         	}
       	});
 
